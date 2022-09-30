@@ -14,7 +14,9 @@ nCols = 12
 nRows = 12
 max = ws.max_row-12
 
-while firstRow <= max:
+ninv = 0
+
+while firstRow <= 42:
     try:
         m = allCells[(firstRow-1):(firstRow+nRows-1), 1:13].astype('float64')
         if np.isfinite(np.sum(m)):
@@ -24,10 +26,12 @@ while firstRow <= max:
             print("Matriz possui dados NAN!\n\n")
     except np.linalg.LinAlgError as err:
         print(str(err) + "\n\n")
+        ninv += 1
     except ValueError as err:
         print("Não tem como trabalhar com uma matriz que possui dados que não são números\n\n")
     except:
         print("Erro!\n\n")
     firstRow = firstRow+1
 
+print(ninv, end="\n\n")
 print("--- %s seconds ---" % (time.time() - start_time))
